@@ -235,7 +235,7 @@ not in 和not exists
 Mysql基础架构
 ---
 
-![img](Mysql 学习.assets/20200830200735434.png)
+![img](Mysql学习.assets/20200830200735434.png)
 
 **优化器**：在表里面有多个索引的时候，决定**使用哪个索引**或者**表的连接顺序**。 
 
@@ -262,7 +262,7 @@ Mysql基础架构
 2. 将记录写入binlog
 3. 提交事务，将redolog的状态改为commit
 
-![img](Mysql 学习.assets/20190418193314931.png)
+![img](Mysql学习.assets/20190418193314931.png)
 
 
 
@@ -283,7 +283,7 @@ Mysql基础架构
 
 语法：`explain select语句` 
 
-![image-20210619190646045](1.Mysql.assets/image-20210619190646045.png)
+![image-20210619190646045](Mysql学习.assets/image-20210619190646045.png)
 
 ***
 
@@ -358,14 +358,14 @@ extra常见的值如下：
 
 > B树：类似普通的平衡二叉树，不同的一点是B树允许每个节点有更多的子节点。
 >
-> ![image-20210620121504536](1.Mysql.assets/image-20210620121504536.png)
+> ![image-20210620121504536](Mysql学习.assets/image-20210620121504536.png)
 >
 > B+树是B-树的变体，也是一种多路搜索树, 它与 B- 树的不同之处在于:
 >
 > 1. 所有数据存储在叶子节点，非叶子节点并不存储真正的data，在mysql中非叶子节点存储的都是索引
 > 2. 为所有叶子结点增加了一个双向指针
 > 
->![image-20210620121917362](1.Mysql.assets/image-20210620121917362.png)
+>![image-20210620121917362](Mysql学习.assets/image-20210620121917362.png)
 > 
 >使用B+树的好处：
 > 
@@ -486,7 +486,7 @@ innodb既有聚簇索引又有非聚簇索引。myisam中只有非聚簇索引�
 
 例：`select * from table where b = 13 and c = 16 and d = 4;` 
 
-![image-20210824194319135](Mysql 学习.assets/image-20210824194319135.png)
+![image-20210824194319135](Mysql学习.assets/image-20210824194319135.png)
 
 利用第一个索引字段b，找到b=13的索引，然后从找出的索引中继续匹配c=16的索引，最后匹配d=4的索引数据，于是找到该组合索引下的**聚簇索引为1**，再从聚簇索引树上找到最终数据。==可以看到只有**第一个索引字段**b是排好序的，剩余的字段都是在前一个字段排好序且相等的情况下再进行排序==。
 
@@ -609,7 +609,7 @@ MVCC(Mutil-Version Concurrency Control)，就是多版本并发控制。MVCC是�
 
 【1】有个事务1在persion表插入了一条新记录：name为Jerry, age为24岁，隐式主键是1，事务ID假设为1，回滚指针因为是第一条新记录所以为NULL。
 
-![image-20210621122805888](1.Mysql.assets/image-20210621122805888.png)
+![image-20210621122805888](Mysql学习.assets/image-20210621122805888.png)
 
 【2】现在来了一个事务2对该记录的name做出了修改，改为Tom
 
@@ -618,7 +618,7 @@ MVCC(Mutil-Version Concurrency Control)，就是多版本并发控制。MVCC是�
 - 拷贝完毕后，修改该行name为Tom，并且修改隐藏字段的事务ID为当前事务2的ID, 假设为2。将该行的回滚指针指向undolog中的最新的副本记录。
 - 事务提交后，释放锁
 
-![image-20210621123529249](1.Mysql.assets/image-20210621123529249.png)
+![image-20210621123529249](Mysql学习.assets/image-20210621123529249.png)
 
 > undolog里面的内容是二进制的，这里为了方便理解写成记录的形式。
 >
@@ -751,7 +751,7 @@ RR：为了解决幻读，引入了间隙锁。
 
 原理如下：
 
-![img](1.Mysql.assets/820365-20160821160615776-1749314661.png)
+![img](Mysql学习.assets/820365-20160821160615776-1749314661.png)
 
 - master将数据的增删改的sql语句 **记录在二进制文件日志binlog**中
 - slave会在一定时间间隔内对master的binlog进行探测，看其是否发送改变。如果发生改变则**使用一个IO线程**去获取binlog。同时master为**每个从机的IO线程开启一个dump线程**，用于传输binlog。
